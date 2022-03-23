@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
 
 # Autor: Ralf Weinert 
 # Email: ralf.weinert@gmx.de 
@@ -16,19 +15,24 @@
 # Probleme
 # *path* muss mit einem schließenden '/' versehen sein
 
-#License
+# License
 # cc-by-sa 4.0 
 # https://creativecommons.org/licenses/by-sa/4.0/deed.de
 
 
 import pyqrcode
 from pyqrcode import QRCode
+from pathlib import Path
 
 # Speicherpfad der QR
-# dieser muss existieren!
-# ifExist wird nicht geprüft!!!!
-# MIT schließenem '/'
-path = r"/home/ralf/programmieren/phython_scipts/Laptop_QR/"
+# dieser muss nicht existieren!
+# MIT schließenem '/' wegen der File-Namen
+#path = r"/home/ralf/programmieren/python_scipts/Laptop_QR/"
+
+path = Path("/home/ralf/programmieren/python_scipts/Laptop_QR/")
+path.mkdir(parents=True, exist_ok=True)
+
+
 
 # pic_format
 pic_format = ".png"
@@ -54,7 +58,8 @@ body = """Lieber Admin,
 	Liebe Grüße
 	"""
 # Anzahl der QR-Codes
-n = range(1,31)
+#n = range(1,31)
+n = range(1,3)
 
 
 
@@ -67,7 +72,7 @@ for i in n:
 	print (data)	
 	myQR = QRCode(data.encode('iso-8859-1'), encoding='iso-8859-1')
 	if pic_format == ".png":
-		myQR.png(path+qr_name+str(i)+'.png', scale=16)
+		myQR.png(str(path)+"/"+qr_name+str(i)+'.png', scale=16)
 	else:
 		print("Dieses Format *"+pic_format+"* wird nicht unterstützt")
 		
